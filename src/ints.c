@@ -75,7 +75,6 @@ void handle_interrupt(uint64_t interrupt_number) {
 // Gestionnaire d'interruption du minuteur
 void timer_interrupt_handler() {
     // Code pour gérer l'interruption du minuteur
-    interrupt_counter++;
     print("timer_interrupt\n");
 }
 
@@ -94,33 +93,4 @@ void page_fault_handler() {
 void exception_handler() {
     // Code pour gérer l'interruption d'exception
     print("exception_interrupt\n");
-}
-
-
-// Adresse de base du registre du timer
-#define TIMER_BASE_ADDRESS 0x12345678
-
-// Décalage des registres du timer
-#define TIMER_CONTROL_OFFSET 0x00
-#define TIMER_LOAD_OFFSET 0x04
-#define TIMER_VALUE_OFFSET 0x08
-#define TIMER_IRQ_OFFSET 0x0C
-
-// Masques de bits pour le registre de contrôle du timer
-#define TIMER_CONTROL_ENABLE (1 << 0)
-#define TIMER_CONTROL_PERIODIC (1 << 1)
-
-// Fonction pour initialiser la minuterie
-void init_timer() {
-    // Adresse de base du registre du timer
-    volatile uint32_t* timer_base = (uint32_t*)TIMER_BASE_ADDRESS;
-
-    // Configuration du registre de contrôle du timer
-    timer_base[TIMER_CONTROL_OFFSET] = TIMER_CONTROL_ENABLE | TIMER_CONTROL_PERIODIC;
-
-    // Configuration de la valeur de chargement du timer
-    timer_base[TIMER_LOAD_OFFSET] = 1000;  // Valeur de chargement de la minuterie (par exemple, 1000)
-
-    // Configuration de l'interruption du timer (facultatif)
-    timer_base[TIMER_IRQ_OFFSET] = 1;  // Activer l'interruption du timer (1 pour activer, 0 pour désactiver)
 }
