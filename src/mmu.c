@@ -57,7 +57,7 @@ uint64_t translate_address(uint64_t virtual_address) {
 }
 
 // Gestion de l'erreur de page manquante (page fault)
-void handle_page_fault() {
+void page_fault_handler() {
     // Code pour gérer la page manquante
     print("Page Fault\n");
 }
