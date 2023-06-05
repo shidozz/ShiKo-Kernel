@@ -17,4 +17,5 @@ uint64_t translate_address(uint64_t virtual_address);
 void mmu_init();
 void page_fault_handler();
 void* allocate_page();
+uint8_t* example();
 #endif
