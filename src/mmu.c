@@ -62,10 +62,10 @@ void handle_page_fault() {
 }
 
 // Exemple d'utilisation de la MMU
-void example() {
+uint8_t* example() {
     uint64_t virtual_address = 0x12345678;
     uint64_t physical_address = translate_address(virtual_address);
-    uint8_t* data = (uint8_t*)physical_address;
+    return (uint8_t*)physical_address;
 
 }
 
