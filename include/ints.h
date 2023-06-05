@@ -4,7 +4,6 @@
 void handle_interrupt(uint64_t interrupt_number);
 void timer_interrupt_handler();
 void device_interrupt_handler();
-void page_fault_handler();
 void exception_handler();
 void disable_interrupts();
 void enable_interrupts();
