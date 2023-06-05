@@ -84,11 +84,6 @@ void device_interrupt_handler() {
     print("device_interrupt\n");
 }
 
-// Gestionnaire d'interruption de Page Fault
-void page_fault_handler() {
-    // Code pour gérer l'interruption de Page Fault
-    print("page_fault_interrupt\n");
-}
 // Gestionnaire d'interruption d'exception
 void exception_handler() {
     // Code pour gérer l'interruption d'exception
