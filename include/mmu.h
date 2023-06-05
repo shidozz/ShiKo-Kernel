@@ -15,6 +15,6 @@ typedef struct PageTableEntry {
 } PageTableEntry;
 uint64_t translate_address(uint64_t virtual_address);
 void mmu_init();
-void handle_page_fault();
+void page_fault_handler();
 void* allocate_page();
 #endif
