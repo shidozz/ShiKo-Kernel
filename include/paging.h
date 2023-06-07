@@ -6,8 +6,6 @@
 typedef struct {
     uint64_t valid: 1;
     uint64_t address: 48;
-    // Autres attributs de contrôle des pages (présents, permission, etc.)
-    // ...
 } PageTableEntry;
 
 void map_pages();
