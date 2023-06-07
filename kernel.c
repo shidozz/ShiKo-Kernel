@@ -17,7 +17,6 @@ void kmain(void) {
     enable_pagination();
     print("PAGING Enabled!\n");
     
-    // Configuration des vecteurs d'interruption et enregistrement des gestionnaires
     // Activation des interruptions
     enable_interrupts();
     // Boucle principale du kernel
