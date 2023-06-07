@@ -6,7 +6,17 @@
 #include "./include/serial.h"
 #include "./include/ints.h"
 
-
+void switch_to_supervisor_mode() {
+    // Code d'assemblage pour passer en mode superviseur
+    asm volatile(
+        "mov x0, #0\n"            // Code d'appel système (0 pour basculer en mode superviseur)
+        "mov x1, #0\n"            // Arguments (peuvent être utilisés selon les besoins)
+        "mov x2, #0\n"            // Arguments (peuvent être utilisés selon les besoins)
+        "mov x3, #0\n"            
+        "mov x4, #0\n"          // Arguments (peuvent être utilisés selon les besoins)
+        "hvc #0\n"               
+    );
+}
 
 void kmain(void) {
     print("Shidozz et Kokolor kernel!\n");
