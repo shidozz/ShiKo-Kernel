@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdarg.h>
-#include "./include/mmu.h"
+#include "./include/paging.h"
 #include "./include/serial.h"
 #include "./include/ints.h"
 
