@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include "../include/ints.h"
 #include "../include/serial.h"
-#include "../include/mmu.h"
+#include "../include/paging.h"
 
 volatile uint64_t interrupt_counter = 0;
 
