@@ -12,13 +12,7 @@
 // Table des pages
 #define PAGE_TABLE_ENTRIES 1024
 
-// Structure d'entrée de table des pages
-typedef struct {
-    uint64_t valid: 1;
-    uint64_t address: 48;
-    // Autres attributs de contrôle des pages (présents, permission, etc.)
-    // ...
-} PageTableEntry;
+
 
 // Table des pages
 PageTableEntry page_table[PAGE_TABLE_ENTRIES] __attribute__((aligned(PAGE_SIZE)));
@@ -49,19 +43,19 @@ void map_pages() {
 void enable_pagination() {
     // Charger l'adresse de la table des pages dans le registre de contrôle approprié (TTBR0_EL1)
     uint64_t page_table_address = (uint64_t)page_table;
-    __asm__ volatile("msr ttbr0_el1, %0" :: "r"(page_table_address));
+    asm volatile("msr ttbr0_el1, %0" :: "r"(page_table_address));
 
     // Activer la pagination en modifiant les registres de contrôle appropriés
 
     // Étape 1 : Activer la MMU (Memory Management Unit)
     uint64_t sctlr;
-    __asm__ volatile("mrs %0, sctlr_el1" : "=r"(sctlr));
+    asm volatile("mrs %0, sctlr_el1" : "=r"(sctlr));
     sctlr |= (1 << 0); // Positionner le bit 0 (M) à 1 pour activer la MMU
-    __asm__ volatile("msr sctlr_el1, %0" :: "r"(sctlr));
+    asm volatile("msr sctlr_el1, %0" :: "r"(sctlr));
 
     // Étape 2 : Effectuer un TLB flush pour purger les anciennes entrées du TLB (Translation Lookaside Buffer)
-    __asm__ volatile("tlbi vmalle1is");
+    asm volatile("tlbi vmalle1is");
 
     // Étape 3 : Réinitialiser le cache d'instructions pour prendre en compte les nouvelles configurations de pagination
-    __asm__ volatile("isb");
+    asm volatile("isb");
 }
