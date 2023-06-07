@@ -10,8 +10,13 @@
 
 void kmain(void) {
     print("Shidozz et Kokolor kernel!\n");
-    mmu_init();
-    print("mmu initialiser!\n");
+    initialize_page_table();
+    print("PAGING TABLE Initialiser!\n");
+    map_pages();
+    print("MAP PAGE!\n");
+    enable_pagination();
+    print("PAGING Enabled!\n");
+    
     // Configuration des vecteurs d'interruption et enregistrement des gestionnaires
     // Activation des interruptions
     enable_interrupts();
