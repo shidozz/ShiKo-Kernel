@@ -41,21 +41,24 @@ void map_pages() {
 
 // Fonction d'activation de la pagination
 void enable_pagination() {
-    // Charger l'adresse de la table des pages dans le registre de contrôle approprié (TTBR0_EL1)
     uint64_t page_table_address = (uint64_t)page_table;
+    uint64_t sctlr;
+
+    // Charger l'adresse de la table des pages dans le registre de contrôle (TTBR0_EL1)
     asm volatile("msr ttbr0_el1, %0" :: "r"(page_table_address));
 
-    // Activer la pagination en modifiant les registres de contrôle appropriés
-
-    // Étape 1 : Activer la MMU (Memory Management Unit)
-    uint64_t sctlr;
+    // Charger la valeur actuelle du registre de contrôle (SCTLR_EL1)
     asm volatile("mrs %0, sctlr_el1" : "=r"(sctlr));
-    sctlr |= (1 << 0); // Positionner le bit 0 (M) à 1 pour activer la MMU
+
+    // Activer la pagination en modifiant les bits appropriés dans le registre de contrôle
+    sctlr |= (1 << 0); // Bit 0 : MMU enable
+
+    // Charger la nouvelle valeur du registre de contrôle
     asm volatile("msr sctlr_el1, %0" :: "r"(sctlr));
 
-    // Étape 2 : Effectuer un TLB flush pour purger les anciennes entrées du TLB (Translation Lookaside Buffer)
+    // Effectuer un TLB flush pour purger les anciennes entrées du TLB
     asm volatile("tlbi vmalle1is");
 
-    // Étape 3 : Réinitialiser le cache d'instructions pour prendre en compte les nouvelles configurations de pagination
+    // Réinitialiser le cache d'instructions
     asm volatile("isb");
 }
