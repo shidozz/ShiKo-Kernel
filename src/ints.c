@@ -78,6 +78,10 @@ void timer_interrupt_handler() {
     print("timer_interrupt\n");
 }
 
+void page_fault_handler() {
+    print("page fault handler");
+}
+
 // Gestionnaire d'interruption du périphérique
 void device_interrupt_handler() {
     // Code pour gérer l'interruption du périphérique
